@@ -68,11 +68,12 @@ sudo iw dev wlan0 set power_save off
 
 # Backup original brcmfmac.ko
 #sudo mv /usr/lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko /usr/lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.bak
-sudo mv /usr/lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.xz /usr/lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.bak
+sudo mv /lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko /lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.bak
+#/lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
 
 # Copy nexmon patched brcmfmac.ko
 #sudo cp /home/pi/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko /usr/lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
-sudo cp /root/nexmon/patches/driver/brcmfmac_5.15.y-nexmon/brcmfmac.ko /usr/lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
+sudo cp /root/nexmon/patches/driver/brcmfmac_5.15.y-nexmon/brcmfmac.ko /lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
 
 # Update module dependencies
 sudo depmod -a
