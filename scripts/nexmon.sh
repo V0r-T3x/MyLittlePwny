@@ -6,37 +6,15 @@
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Install necessary packages
-#sudo apt-get install -y raspberrypi-kernel-headers git libgmp3-dev gawk qpdf bison flex make autoconf libtool texinfo
-#sudo apt-get install -y git libgmp3-dev gawk qpdf bison flex make autoconf libtool texinfo
 sudo apt-get install -y git libgmp3-dev gawk qpdf bison flex make autoconf libtool texinfo gcc-arm-none-eabi wl libfl-dev g++ xxd libisl-dev libmpfr-dev
 
 # Clone nexmon repository
-#git clone https://github.com/seemoo-lab/nexmon.git
 git clone https://github.com/DrSchottky/nexmon.git
 
-# Build and install isl
-#cd nexmon/buildtools/isl-0.10
-#./configure
-#make
-#sudo make install
+# Comment -DDEBUG from your brcmfmac's Makefile
+sed -i '/-DDEBUG/ s/^/#/' /root/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/Makefile
+sed -i '/debug.o/ s/^/#/' /root/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/Makefile
 
-# Create symlink for libisl (*https://codeby.net/threads/nexmon-nexmonsdr-na-raspberry-pi-3-model-b-pi-0-w.75585/*)
-#sudo ln -s /usr/local/lib/libisl.so /usr/lib/arm-linux-gnueabihf/libisl.so.10
-#sudo ln -s /usr/lib/arm-linux-gnueabihf/libisl.so /usr/lib/arm-linux-gnueabihf/libisl.so.10
-
-# Build and install mpfr
-#cd /home/pi/nexmon/buildtools/mpfr-3.1.4
-#autoreconf -f -i
-#./configure
-#make
-#sudo make install
-
-# Create symlink for libmpfr
-#sudo ln -s /usr/local/lib/libmpfr.so /usr/lib/arm-linux-gnueabihf/libmpfr.so.4
-#sudo ln -s usr/lib/arm-linux-gnueabihf/libmpfr.so /usr/lib/arm-linux-gnueabihf/libmpfr.so.4
-
-# Remove -DDEBUG from your brcmfmac's Makefile
-sed -i '/-DDEBUG/ s/^/#/' /root/nexmon/patches/driver/brcmfmac_5.15.y-nexmon/Makefile
 
 # Set up environment
 cd nexmon
@@ -66,22 +44,23 @@ sudo apt-get remove -y wpasupplicant
 # Disable power save mode for wlan0
 sudo iw dev wlan0 set power_save off
 
+# Archive the .ko into a .xz file
+#sudo xz /root/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
+
 # Backup original brcmfmac.ko
-#sudo mv /usr/lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko /usr/lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.bak
-sudo mv /lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko /lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.bak
-#/lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
+sudo mv /lib/modules/5.10.21-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko /lib/modules/5.10.21-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.bak
 
 # Copy nexmon patched brcmfmac.ko
-#sudo cp /home/pi/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko /usr/lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
-sudo cp /root/nexmon/patches/driver/brcmfmac_5.15.y-nexmon/brcmfmac.ko /lib/modules/5.15.93-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
+sudo cp /root/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko /lib/modules/5.10.21-sunxi/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
 
 # Update module dependencies
 sudo depmod -a
 
 # Setup a new monitor mode interface (thanks to Mame82)
-iw phy `iw dev wlan0 info | gawk '/wiphy/ {printf "phy" $2}'` interface add mon0 type monitor
+#iw phy `iw dev wlan0 info | gawk '/wiphy/ {printf "phy" $2}'` interface add mon0 type monitor
 
 # To activate monitor mode:
+# testing patch: tcpdump -i mon0
 # ifconfig wlan0 down && ifconfig mon0 up
 # ifconfig mon0 down && ifconfig wlan0 up
 
