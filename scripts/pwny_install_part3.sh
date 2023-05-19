@@ -18,6 +18,13 @@ sudo chmod +x /usr/bin/monstop
 sudo chmod +x /etc/systemd/system/pwnagotchi.service
 sudo chmod +x /etc/systemd/system/pwngrid-peer.service
 
+# Download aluminum-ice pwnlib
+cd /root/
+wget https://raw.githubusercontent.com/aluminum-ice/pwnagotchi/master/builder/data/usr/bin/pwnlib
+
+# Copy pwnlib
+sudo mv /usr/bin/pwnlib /usr/bin/pwnlib.bak
+sudo cp /root/pwnlib /usr/bin/pwnlib
 
 ############ edit pwnlib and change interface mon0 command to below
 ############ wlanxxxxxx should be the name of the external wifi device in iwconfig eg wlx00ee11ff00cc 
