@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #######################################################################
 #########  Download and install Buster Current 5.1y####################
 #https://xogium.performanceservers.nl/archive/nanopiduo2/archive/Armbian_21.02.3_Nanopiduo2_buster_current_5.10.21.img.xz
@@ -26,7 +27,7 @@ echo '/swapfile1 none swap sw 0 0' >> /etc/fstab
 sudo apt-get update && sudo apt-get upgrade -y
 
 ###### script to install all the other deps
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 
 # Orange Pi Zero Bionic dependencies
 cat > /tmp/dependencies << EOF
