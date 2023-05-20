@@ -111,6 +111,8 @@ sudo rm -r /usr/bin/go
 sudo tar -C /usr/local -xzf go1.20.2.linux-armv6l.tar.gz
 export PATH=$PATH:/usr/local/go/bin/
 source .bashrc
+# Add export PATH=$PATH:/usr/local/go/bin to /etc/profile
+# nano /etc/profile
 #####2.29?
 wget https://github.com/bettercap/bettercap/archive/refs/tags/v2.32.0.zip
 unzip v2.32.0.zip
