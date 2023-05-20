@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ### Install requirements.txt followed by the Pwnagotchi
 cd Pwnagotchi-For-Banana-Orange-Pi/
 TMPDIR=/root/tmp python3.7 -m pip install -r requirements.txt
