@@ -22,7 +22,8 @@ swapon /swapfile1
 
 echo '/swapfile1 none swap sw 0 0' >> /etc/fstab
 
-apt update && apt upgrade
+#apt update && apt upgrade
+sudo apt-get update && sudo apt-get upgrade -y
 
 ###### script to install all the other deps
 #!/usr/bin/env bash
