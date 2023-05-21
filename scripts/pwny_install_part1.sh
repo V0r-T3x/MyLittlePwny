@@ -88,10 +88,10 @@ libusb-1.0-0-dev
 libnetfilter-queue-dev
 libhdf5-dev 
 armbian-firmware-full
-python3.7
-python3-distutils 
-python3-dev
-python3-pip
+#python3.7
+#python3-distutils 
+#python3-dev
+#python3-pip
 EOF
 
 sudo apt -q update
@@ -99,6 +99,19 @@ for pkg in $(cat /tmp/dependencies)
 do
   sudo apt install -y $pkg
 done
+
+#################################
+###################Install Python3.7
+wget https://www.python.org/ftp/python/3.7.15/Python-3.7.15.tgz
+mv Python-3.7.15.tgz /opt/
+cd /opt/
+tar xvf Python-3.7.15.tgz
+cd Python-3.7.15
+./configure --enable-optimizations --enable-shared
+##### set make going and go to bed, 7.5 hours is normal
+make -j 4
+make altinstall
+ldconfig /opt/Python3.7.15/
 
 #################################
 # 1. bettercap
