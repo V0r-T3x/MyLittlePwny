@@ -102,6 +102,19 @@ done
 
 #################################
 ###################Install Python3.7
+############ To try first #################
+## Install Python 3.7.x
+## Add the repo for Python3.7:
+echo 'deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu focal main' | sudo tee -a /etc/apt/sources.list
+echo 'deb-src http://ppa.launchpad.net/deadsnakes/ppa/ubuntu focal main' | sudo tee -a /etc/apt/sources.list
+
+## Download key and install python3.7
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA6932366A755776
+sudo apt-get update
+sudo apt-get install -y python3.7 python3.7-dev python3.7-distutils python3-pip
+
+############ To try in second #################
+
 wget https://www.python.org/ftp/python/3.7.15/Python-3.7.15.tgz
 mv Python-3.7.15.tgz /opt/
 cd /opt/
